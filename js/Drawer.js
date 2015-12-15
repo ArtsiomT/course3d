@@ -53,12 +53,12 @@
                     //                figure.cylinder2.upEdgePoints[i+1], figure.cylinder2.downEdgePoints[i+1],
                     //                "blue");
 
-                this.fillRect(figure.cylinder1.upEdgePoints[i], figure.cylinder2.upEdgePoints[i],
-                    figure.cylinder1.upEdgePoints[i+1], figure.cylinder2.upEdgePoints[i+1],
-                    "green");
-                this.fillRect(figure.cylinder2.downEdgePoints[i], figure.cylinder1.downEdgePoints[i],
-                    figure.cylinder2.downEdgePoints[i+1], figure.cylinder1.downEdgePoints[i+1],
-                    "red");
+                //this.fillRect(figure.cylinder1.upEdgePoints[i], figure.cylinder2.upEdgePoints[i],
+                //    figure.cylinder1.upEdgePoints[i+1], figure.cylinder2.upEdgePoints[i+1],
+                //    "green");
+                //this.fillRect(figure.cylinder2.downEdgePoints[i], figure.cylinder1.downEdgePoints[i],
+                //    figure.cylinder2.downEdgePoints[i+1], figure.cylinder1.downEdgePoints[i+1],
+                //    "red");
             }
         }
 
