@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="js/Model.js" type="text/javascript"></script>
+    <script src="js/Entity.js" type="text/javascript"></script>
+    <script src="js/Drawer.js" type="text/javascript"></script>
+    <script src="js/start.js" type="text/javascript"></script>
+    <title>Course Project</title>
+</head>
+<body>
+<header id="header">
+    <h1><a href="index.html">Course Project</a></h1>
+</header>
+<div id="canv">
+    <canvas width="800" height="600" id="canvas">Please, update your browser or activate JavaScript</canvas>
+</div>
+<div id="control">
+
+    <table>
+        <tr>
+            <td>
+                <label for="x">X</label>
+            </td>
+            <td>
+                <input id = "x" name="x" type="text" size="4">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="y">Y</label>
+            </td>
+            <td>
+                <input id = "y" name="y" type="text" size="4">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><button name = "move" onclick="move()">Move</button></td>
+        </tr>
+
+        <hr>
+
+        <tr>
+            <td>
+                <label for="cfx">Cooficient X</label>
+            </td>
+            <td>
+                <input id = "cfx" name = "cfx" type="text" size="4">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="cfy">Cooficient Y</label>
+            </td>
+            <td>
+                <input id = "cfy" name = "cfy" type="text" size="4">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><button name = "scale" onclick="scale()">Scale</button> </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="angleX">Angle X</label>
+            </td>
+            <td>
+                <input id = "angleX" name = "angleX" type="text" size="4">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="angleY">Angle Y</label>
+            </td>
+            <td>
+                <input id = "angleY" name = "angleY" type="text" size="4">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="angleZ">Angle Z</label>
+            </td>
+            <td>
+                <input id = "angleZ" name = "angleZ" type="text" size="4">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><button name = "rotate" onclick="rotate()">Rotate</button> </td>
+        </tr>
+    </table>
+</div>
+<footer>&copy Artyom Terehovich, BNTU, 2015</footer>
+</body>
+</html>
