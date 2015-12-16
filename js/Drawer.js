@@ -58,6 +58,7 @@
                 //this.fillRect(figure.cylinder2.downEdgePoints[i], figure.cylinder1.downEdgePoints[i],
                 //    figure.cylinder2.downEdgePoints[i+1], figure.cylinder1.downEdgePoints[i+1],
                 //    "red");
+
             }
         }
 
