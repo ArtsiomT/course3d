@@ -128,7 +128,6 @@ var Entity = Object.create(null);
         }
 
         Cylinder.prototype.rotate = function(ax, ay, az){
-            console.log("Cylinder.rotate");
             for(var i = 0; i < this.downEdgePoints.length; i++){
                 this.downEdgePoints[i].rotate(ax, ay, az);
                 this.upEdgePoints[i].rotate(ax, ay, az);

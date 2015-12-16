@@ -93,6 +93,29 @@ function setMopt(){
         canvas.onmousemove = null;
         canvas.onmouseup = null;
     }
+    if (radio.id == "move"){
+        canvas.onmousedown = null;
+        canvas.onmousemove = null;
+        canvas.onmouseup = null;
+        canvas.onmousedown = function(e){
+            var x1 = e.clientX;
+            var y1 = e.clientY;
+            canvas.onmousemove = function(em){
+                var x2 = em.clientX;
+                var y2 = em.clientY;
+                var dx = (x2 - x1);
+                var dy = (y1 - y2);
+                figure.move(dx, dy, 0);
+                drawer.clear();
+                drawer.drawFigure(figure);
+                x1 = x2;
+                y1 = y2;
+            }
+            canvas.onmouseup = function(eu){
+                canvas.onmousemove = null;
+            }
+        }
+    }
     if (radio.id == "mrotX"){
         canvas.onmousedown = null;
         canvas.onmousemove = null;

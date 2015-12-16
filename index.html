@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/accord.css" type="text/css">
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="js/jquery/jquery-latest.min.js" type="text/javascript"></script>
     <script src="js/accordion.js" type="text/javascript"></script>
     <script src="js/Model.js" type="text/javascript"></script>
     <script src="js/Entity.js" type="text/javascript"></script>
@@ -167,6 +167,12 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <input name="mopt" type="radio" id="move" checked="checked" onchange="setMopt()">
+                                </td>
+                                <td><label for="move">Move</label> </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <input name="mopt" type="radio" id="mrotX" checked="checked" onchange="setMopt()">
                                 </td>
                                 <td><label for="mrotX">Rotate by X</label> </td>
@@ -182,9 +188,6 @@
                                     <input name="mopt" type="radio" id="mrotZ" checked="checked" onchange="setMopt()">
                                 </td>
                                 <td><label for="mrotZ">Rotate by Z</label> </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><input type="submit" value="Choose" onclick="setMopt()"></td>
                             </tr>
                         </table>
                     </li>

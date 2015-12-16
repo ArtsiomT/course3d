@@ -8,7 +8,6 @@
         }
 
         Drawer.prototype.drawLine = function (x1, y1, x2, y2) {
-            console.log("drawing a line");
             this.context.beginPath();
             this.context.moveTo(x1, y1);
             this.context.lineTo(x2, y2);
@@ -82,7 +81,6 @@
         }
 
         Drawer.prototype.drawAxes = function(){
-            console.log("drawing axes");
             this.context.beginPath();
             this.context.moveTo(0, this.oX);
             this.context.lineTo(this.canvas.width, this.oX);
