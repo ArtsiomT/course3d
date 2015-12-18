@@ -8,6 +8,7 @@ var r1 = 30;
 var r2 = 60;
 var h = 150;
 var q = 20;
+
 window.onload = function () {
     canvas = document.querySelector('canvas');
     var ctx;

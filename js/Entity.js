@@ -138,6 +138,12 @@ var Entity = Object.create(null);
 
     var Figure = (function () {
         function Figure(r1, r2, h, q){
+            this.x = 0;
+            this.y = 0;
+            this.ax = 0;
+            this.ay = 0;
+            this.az = 0;
+            this.sc = 100;
             this.r1 = r1;
             this.r2 = r2;
             this.h = h;
@@ -154,17 +160,38 @@ var Entity = Object.create(null);
         Figure.prototype.move = function(dx, dy, dz){
             this.cylinder1.move(dx, dy, dz);
             this.cylinder2.move(dx, dy, dz);
+            this.x += dx;
+            this.y += dy;
+            document.getElementById('x').value = this.x;
+            document.getElementById('y').value = this.y;
         }
 
         Figure.prototype.scale = function (delta) {
             this.cylinder1.scale(delta);
             this.cylinder2.scale(delta);
+            this.sc *= delta;
+            document.getElementById('cfx').value = this.sc;
         }
 
         Figure.prototype.rotate = function (ax, ay, az){
             this.cylinder1.rotate(ax, ay, az);
             this.cylinder2.rotate(ax, ay, az);
+            this.ax += ax;
+            this.ay += ay;
+            this.az += az;
+            if (this.ax >= 360 || this.ax <= -360){
+                if (this.ax >= 360){
+                    this.ax = Number(this.ax) - 360;
+                } else {
+                    this.ax = Number(this.ax) + 360;
+                }
+            }
+            document.getElementById('angleX').value = this.ax;
+            document.getElementById('angleY').value = this.ay;
+            document.getElementById('angleZ').value = this.az;
+
         }
+
         return Figure;
     })();
     Entity.Apex = Apex;
