@@ -10,6 +10,7 @@ var h = 150;
 var q = 20;
 window.onload = function () {
     canvas = document.querySelector('canvas');
+    var ctx;
 
     resize();
     drawer = new Entity.Drawer(canvas);
@@ -111,7 +112,7 @@ function setMopt(){
                 x1 = x2;
                 y1 = y2;
             }
-            canvas.onmouseup = function(eu){
+            canvas.onmouseup = function () {
                 canvas.onmousemove = null;
             }
         }
@@ -182,6 +183,9 @@ function setMopt(){
             }
         }
     }
+}
+function drawFHP(){
+    drawer.drawFHP(figure);
 }
 
 

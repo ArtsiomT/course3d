@@ -92,6 +92,20 @@
             this.drawLine(200, 0, 200, 400);
         }
 
+        Drawer.prototype.drawFHP = function(figure){
+            var cyl1 = figure.cylinder1;
+            var cyl2 = figure.cylinder2;
+            for(var i = 0; i < cyl1.upEdgePoints.length - 1; i++){
+                this.context.beginPath();
+                this.context.moveTo(cyl1.upEdgePoints[i].x + this.oY / 2, cyl1.upEdgePoints[i].z + this.oX / 2);
+                this.context.lineTo(cyl1.upEdgePoints[i+1].x + this.oY / 2, cyl1.upEdgePoints[i+1].z + this.oX / 2);
+                this.context.moveTo(cyl2.upEdgePoints[i].x + this.oY / 2, cyl2.upEdgePoints[i].z + this.oX / 2);
+                this.context.lineTo(cyl2.upEdgePoints[i+1].x + this.oY / 2, cyl2.upEdgePoints[i+1].z + this.oX / 2);
+                this.context.stroke();
+                this.context.closePath();
+            }
+        }
+
         return Drawer;
     })();
     Entity.Drawer = Drawer;
