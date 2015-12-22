@@ -54,10 +54,10 @@ function resize(){
     canvas.width = window.innerWidth * 0.80;
 }
 function build(){
-    var r1 = Number(document.getElementById("r1").value);
-    var r2 = Number(document.getElementById("r2").value);
-    var h = Number(document.getElementById("h").value);
-    var q = Number(document.getElementById("q").value);
+    r1 = Number(document.getElementById("r1").value);
+    r2 = Number(document.getElementById("r2").value);
+    h = Number(document.getElementById("h").value);
+    q = Number(document.getElementById("q").value);
     figure = new Entity.Figure(r1, r2, h, q);
     drawer.clear();
     drawer.drawFigure(figure);
@@ -110,6 +110,7 @@ function setMopt(){
                 figure.move(dx, dy, 0);
                 drawer.clear();
                 drawer.drawFigure(figure);
+                drawer.drawFHP(figure);
                 x1 = x2;
                 y1 = y2;
             }
@@ -132,6 +133,7 @@ function setMopt(){
                 figure.rotate(angle, 0, 0);
                 drawer.clear();
                 drawer.drawFigure(figure);
+                drawer.drawFHP(figure);
                 x1 = x2;
                 y1 = y2;
             }
@@ -150,10 +152,11 @@ function setMopt(){
             canvas.onmousemove = function(em){
                 var x2 = em.clientX;
                 var y2 = em.clientY;
-                var angle = (x2 - x1);
+                var angle = (x1 - x2);
                 figure.rotate(0, angle, 0);
                 drawer.clear();
                 drawer.drawFigure(figure);
+                drawer.drawFHP(figure);
                 x1 = x2;
                 y1 = y2;
             }

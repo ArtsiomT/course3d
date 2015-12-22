@@ -157,6 +157,19 @@ var Entity = Object.create(null);
             }
         }
 
+        Figure.prototype.clone = function(){
+            var fig = new Figure(this.r1, this.r2, this.h, this.q);
+            fig.x = this.x;
+            fig.y = this.y;
+            fig.ax = this.ax;
+            fig.ay = this.ay;
+            fig.az = this.az;
+            fig.sc = this.sc;
+            fig.cylinder1 = this.cylinder1;
+            fig.cylinder2 = this.cylinder2;
+            return fig;
+        }
+
         Figure.prototype.move = function(dx, dy, dz){
             this.cylinder1.move(dx, dy, dz);
             this.cylinder2.move(dx, dy, dz);
