@@ -73,6 +73,11 @@ var Entity = Object.create(null);
             this.z = z;
         }
 
+        Apex.prototype.clone = function(){
+            var apex = new Apex(this.x, this.y, this.z);
+            return apex;
+        }
+
         Apex.prototype.move = function (dx, dy, dz) {
             this.x += Number(dx);
             this.y += Number(dy);
@@ -111,6 +116,18 @@ var Entity = Object.create(null);
             this.generator.generateEdgePoints(r, h, q);
             this.upEdgePoints = this.generator.upEdgePoints;
             this.downEdgePoints = this.generator.downEdgePoints;
+        }
+        
+        Cylinder.prototype.clone = function () {
+            var cylinder = new Cylinder(this.radius, this.height, this.quality);
+            cylinder.radius = this.radius;
+            cylinder.height = this.height;
+            cylinder.quality = this.quality;
+            for (var i = 0; i < this.upEdgePoints.length; i++){
+                cylinder.upEdgePoints[i] = this.upEdgePoints[i].clone();
+                cylinder.downEdgePoints[i] = this.downEdgePoints[i].clone();
+            }
+            return cylinder;
         }
 
         Cylinder.prototype.move = function (dx, dy, dz) {
@@ -165,8 +182,8 @@ var Entity = Object.create(null);
             fig.ay = this.ay;
             fig.az = this.az;
             fig.sc = this.sc;
-            fig.cylinder1 = this.cylinder1;
-            fig.cylinder2 = this.cylinder2;
+            fig.cylinder1 = this.cylinder1.clone();
+            fig.cylinder2 = this.cylinder2.clone();
             return fig;
         }
 

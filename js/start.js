@@ -8,6 +8,7 @@ var r1 = 30;
 var r2 = 60;
 var h = 150;
 var q = 20;
+var drawProjections = false;
 
 window.onload = function () {
     canvas = document.querySelector('canvas');
@@ -110,7 +111,9 @@ function setMopt(){
                 figure.move(dx, dy, 0);
                 drawer.clear();
                 drawer.drawFigure(figure);
-                drawer.drawFHP(figure);
+                if (drawProjections) {
+                    drawer.drawFHP(figure);
+                }
                 x1 = x2;
                 y1 = y2;
             }
@@ -133,7 +136,9 @@ function setMopt(){
                 figure.rotate(angle, 0, 0);
                 drawer.clear();
                 drawer.drawFigure(figure);
-                drawer.drawFHP(figure);
+                if (drawProjections) {
+                    drawer.drawFHP(figure);
+                }
                 x1 = x2;
                 y1 = y2;
             }
@@ -156,7 +161,9 @@ function setMopt(){
                 figure.rotate(0, angle, 0);
                 drawer.clear();
                 drawer.drawFigure(figure);
-                drawer.drawFHP(figure);
+                if (drawProjections) {
+                    drawer.drawFHP(figure);
+                }
                 x1 = x2;
                 y1 = y2;
             }
@@ -179,6 +186,9 @@ function setMopt(){
                 figure.rotate(0, 0, angle);
                 drawer.clear();
                 drawer.drawFigure(figure);
+                if (drawProjections) {
+                    drawer.drawFHP(figure);
+                }
                 x1 = x2;
                 y1 = y2;
             }
@@ -189,7 +199,18 @@ function setMopt(){
     }
 }
 function drawFHP(){
-    drawer.drawFHP(figure);
+    var button = document.getElementById("fhp");
+    if (button.value == "Draw"){
+        drawer.drawFHP(figure);
+        button.value = "Not draw";
+        drawProjections = true;
+    } else {
+        button.value = "Draw";
+        drawer.clear();
+        drawProjections = false;
+        drawer.drawFigure(figure);
+
+    }
 }
 
 

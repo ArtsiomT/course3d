@@ -22,8 +22,8 @@ var Model = Object.create(null);
                 var newX = x0 + Math.cos(currAngle) * radius;
                 var newY = y0;
                 var newZ = y0 + Math.sin(currAngle) * radius;
-                this.upEdgePoints.push(new Entity.Apex(newX, newY, newZ));
-                this.downEdgePoints.push(new Entity.Apex(newX, newY + height, newZ));
+                this.upEdgePoints.push(new Entity.Apex(newX, newY + height, newZ));
+                this.downEdgePoints.push(new Entity.Apex(newX, newY, newZ));
             }
         }
         return Generator;

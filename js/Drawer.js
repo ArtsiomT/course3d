@@ -15,12 +15,15 @@
             this.context.closePath();
         }
 
-        Drawer.prototype.drawLine = function (apex1, apex2){
+        Drawer.prototype.drawLine = function (apex1, apex2, color){
+            var tempCol = this.context.strokeStyle;
+            this.context.strokeStyle = color;
             this.context.beginPath();
             this.context.moveTo(apex1.x + this.oY, -apex1.y + this.oX);
             this.context.lineTo(apex2.x + this.oY, -apex2.y + this.oX);
             this.context.stroke();
             this.context.closePath();
+            this.context.strokeStyle = tempCol;
         }
 
         Drawer.prototype.drawCylinder = function (cylinder) {
@@ -35,14 +38,14 @@
         Drawer.prototype.drawFigure = function(figure){
             this.drawAxes();
             for (var i = 0; i < figure.q; i++){
-                this.drawLine(figure.cylinder1.upEdgePoints[i], figure.cylinder1.upEdgePoints[i+1]);
-                this.drawLine(figure.cylinder2.upEdgePoints[i], figure.cylinder2.upEdgePoints[i+1]);
-                this.drawLine(figure.cylinder1.downEdgePoints[i], figure.cylinder1.downEdgePoints[i+1]);
-                this.drawLine(figure.cylinder2.downEdgePoints[i], figure.cylinder2.downEdgePoints[i+1]);
-                this.drawLine(figure.cylinder1.upEdgePoints[i], figure.cylinder1.downEdgePoints[i]);
-                this.drawLine(figure.cylinder2.upEdgePoints[i], figure.cylinder2.downEdgePoints[i]);
-                this.drawLine(figure.cylinder1.upEdgePoints[i], figure.cylinder2.upEdgePoints[i]);
-                this.drawLine(figure.cylinder1.downEdgePoints[i], figure.cylinder2.downEdgePoints[i]);
+                this.drawLine(figure.cylinder1.upEdgePoints[i], figure.cylinder1.upEdgePoints[i+1], "red");
+                this.drawLine(figure.cylinder2.upEdgePoints[i], figure.cylinder2.upEdgePoints[i+1], "blue");
+                this.drawLine(figure.cylinder1.downEdgePoints[i], figure.cylinder1.downEdgePoints[i+1], "red");
+                this.drawLine(figure.cylinder2.downEdgePoints[i], figure.cylinder2.downEdgePoints[i+1], "blue");
+                this.drawLine(figure.cylinder1.upEdgePoints[i], figure.cylinder1.downEdgePoints[i], "red");
+                this.drawLine(figure.cylinder2.upEdgePoints[i], figure.cylinder2.downEdgePoints[i], "blue");
+                this.drawLine(figure.cylinder1.upEdgePoints[i], figure.cylinder2.upEdgePoints[i], "blue");
+                this.drawLine(figure.cylinder1.downEdgePoints[i], figure.cylinder2.downEdgePoints[i], "blue");
 
 
                     //this.fillRect(figure.cylinder1.upEdgePoints[i], figure.cylinder1.downEdgePoints[i],
@@ -112,6 +115,8 @@
                 this.context.lineTo(cyl2.upEdgePoints[i].x + this.oY / 2, cyl2.upEdgePoints[i].z + this.oX / 2);
                 this.context.moveTo(cyl2.upEdgePoints[i].x + this.oY / 2, cyl2.upEdgePoints[i].z + this.oX / 2);
                 this.context.lineTo(cyl2.downEdgePoints[i].x + this.oY / 2, cyl2.downEdgePoints[i].z + this.oX / 2);
+                this.context.moveTo(cyl1.upEdgePoints[i].x + this.oY / 2, cyl1.upEdgePoints[i].z + this.oX / 2);
+                this.context.lineTo(cyl1.downEdgePoints[i].x + this.oY / 2, cyl1.downEdgePoints[i].z + this.oX / 2);
                 this.context.moveTo(cyl2.downEdgePoints[i].x + this.oY / 2, cyl2.downEdgePoints[i].z + this.oX / 2);
                 this.context.lineTo(cyl2.downEdgePoints[i+1].x + this.oY / 2, cyl2.downEdgePoints[i+1].z + this.oX / 2);
                 this.context.moveTo(cyl1.downEdgePoints[i].x + this.oY / 2, cyl1.downEdgePoints[i].z + this.oX / 2);
@@ -119,18 +124,18 @@
                 this.context.moveTo(cyl1.downEdgePoints[i].x + this.oY / 2, cyl1.downEdgePoints[i].z + this.oX / 2);
                 this.context.lineTo(cyl2.downEdgePoints[i].x + this.oY / 2, cyl2.downEdgePoints[i].z + this.oX / 2);
                 //profile projection
-                this.context.moveTo(pcyl1.upEdgePoints[i].x + 3 * this.oY / 2, pcyl1.upEdgePoints[i].y + this.oX / 2);
-                this.context.lineTo(pcyl1.upEdgePoints[i + 1].x + 3 * this.oY / 2, pcyl1.upEdgePoints[i + 1].y + this.oX / 2);
-                this.context.moveTo(pcyl1.upEdgePoints[i].x + 3 * this.oY / 2, pcyl1.upEdgePoints[i].y + this.oX / 2);
-                this.context.lineTo(pcyl1.downEdgePoints[i].x + 3 * this.oY / 2, pcyl1.downEdgePoints[i].y + this.oX / 2);
-                this.context.moveTo(pcyl1.downEdgePoints[i].x + 3 * this.oY / 2, pcyl1.downEdgePoints[i].y + this.oX / 2);
-                this.context.lineTo(pcyl1.downEdgePoints[i + 1].x + 3 * this.oY / 2, pcyl1.downEdgePoints[i + 1].y + this.oX / 2);
-                this.context.moveTo(pcyl2.upEdgePoints[i].x + 3 * this.oY / 2, pcyl2.upEdgePoints[i].y + this.oX / 2);
-                this.context.lineTo(pcyl2.upEdgePoints[i + 1].x + 3 * this.oY / 2, pcyl2.upEdgePoints[i + 1].y + this.oX / 2);
-                this.context.moveTo(pcyl2.upEdgePoints[i].x + 3 * this.oY / 2, pcyl2.upEdgePoints[i].y + this.oX / 2);
-                this.context.lineTo(pcyl2.downEdgePoints[i].x + 3 * this.oY / 2, pcyl2.downEdgePoints[i].y + this.oX / 2);
-                this.context.moveTo(pcyl2.downEdgePoints[i].x + 3 * this.oY / 2, pcyl2.downEdgePoints[i].y + this.oX / 2);
-                this.context.lineTo(pcyl2.downEdgePoints[i + 1].x + 3 * this.oY / 2, pcyl2.downEdgePoints[i + 1].y + this.oX / 2);
+                this.context.moveTo(-pcyl1.upEdgePoints[i].x + 3 * this.oY / 2, -pcyl1.upEdgePoints[i].y + this.oX / 2);
+                this.context.lineTo(-pcyl1.upEdgePoints[i + 1].x + 3 * this.oY / 2, -pcyl1.upEdgePoints[i + 1].y + this.oX / 2);
+                this.context.moveTo(-pcyl1.upEdgePoints[i].x + 3 * this.oY / 2, -pcyl1.upEdgePoints[i].y + this.oX / 2);
+                this.context.lineTo(-pcyl1.downEdgePoints[i].x + 3 * this.oY / 2, -pcyl1.downEdgePoints[i].y + this.oX / 2);
+                this.context.moveTo(-pcyl1.downEdgePoints[i].x + 3 * this.oY / 2, -pcyl1.downEdgePoints[i].y + this.oX / 2);
+                this.context.lineTo(-pcyl1.downEdgePoints[i + 1].x + 3 * this.oY / 2, -pcyl1.downEdgePoints[i + 1].y + this.oX / 2);
+                this.context.moveTo(-pcyl2.upEdgePoints[i].x + 3 * this.oY / 2, -pcyl2.upEdgePoints[i].y + this.oX / 2);
+                this.context.lineTo(-pcyl2.upEdgePoints[i + 1].x + 3 * this.oY / 2, -pcyl2.upEdgePoints[i + 1].y + this.oX / 2);
+                this.context.moveTo(-pcyl2.upEdgePoints[i].x + 3 * this.oY / 2, -pcyl2.upEdgePoints[i].y + this.oX / 2);
+                this.context.lineTo(-pcyl2.downEdgePoints[i].x + 3 * this.oY / 2, -pcyl2.downEdgePoints[i].y + this.oX / 2);
+                this.context.moveTo(-pcyl2.downEdgePoints[i].x + 3 * this.oY / 2, -pcyl2.downEdgePoints[i].y + this.oX / 2);
+                this.context.lineTo(-pcyl2.downEdgePoints[i + 1].x + 3 * this.oY / 2, -pcyl2.downEdgePoints[i + 1].y + this.oX / 2);
 
                 this.context.stroke();
                 this.context.closePath();
