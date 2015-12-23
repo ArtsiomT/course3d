@@ -136,7 +136,10 @@
                 this.context.lineTo(-pcyl2.downEdgePoints[i].x + 3 * this.oY / 2, -pcyl2.downEdgePoints[i].y + this.oX / 2);
                 this.context.moveTo(-pcyl2.downEdgePoints[i].x + 3 * this.oY / 2, -pcyl2.downEdgePoints[i].y + this.oX / 2);
                 this.context.lineTo(-pcyl2.downEdgePoints[i + 1].x + 3 * this.oY / 2, -pcyl2.downEdgePoints[i + 1].y + this.oX / 2);
-
+                this.context.moveTo(-pcyl1.upEdgePoints[i].x + 3 * this.oY / 2, -pcyl1.upEdgePoints[i].y + this.oX / 2);
+                this.context.lineTo(-pcyl2.upEdgePoints[i].x + 3 * this.oY / 2, -pcyl2.upEdgePoints[i].y + this.oX / 2);
+                this.context.moveTo(-pcyl1.downEdgePoints[i].x + 3 * this.oY / 2, -pcyl1.downEdgePoints[i].y + this.oX / 2);
+                this.context.lineTo(-pcyl2.downEdgePoints[i].x + 3 * this.oY / 2, -pcyl2.downEdgePoints[i].y + this.oX / 2);
                 this.context.stroke();
                 this.context.closePath();
             }
