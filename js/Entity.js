@@ -63,6 +63,18 @@ var Entity = Object.create(null);
                 this.multiply(rotZ);
             }
         }
+
+        Matrix.prototype.axon = function(fi, psi){
+            var angleFi = Number(fi) * Math.PI / 180;
+            var anglePsi = Number(psi) * Math.PI / 180;
+            var axonometric = new Matrix();
+            axonometric.matrix[0][0] = Math.cos(anglePsi); axonometric.matrix[0][1] = Math.sin(angleFi) * Math.sin(anglePsi); axonometric.matrix[0][2] = 0; axonometric.matrix[0][3] = 0;
+            axonometric.matrix[1][0] = 0; axonometric.matrix[1][1] = Math.cos(angleFi);axonometric.matrix[1][2] = 0; axonometric.matrix[1][3] = 0;
+            axonometric.matrix[2][0] = Math.sin(angleFi); axonometric.matrix[2][1] = Math.sin(angleFi) * Math.cos(anglePsi) * -1; axonometric.matrix[2][2] = 0; axonometric.matrix[2][3] = 0;
+            axonometric.matrix[3][0] = 0; axonometric.matrix[3][1] = 0; axonometric.matrix[3][2] = 0; axonometric.matrix[3][3] = 1;
+            //return axonometric;
+            this.multiply(axonometric);
+        }
         return Matrix;
     })();
 
@@ -84,10 +96,10 @@ var Entity = Object.create(null);
             this.z += Number(dz);
         }
 
-        Apex.prototype.scale = function (delta) {
-            this.x *= Number(delta);
-            this.y *= Number(delta);
-            this.z *= Number(delta);
+        Apex.prototype.scale = function (deltaX, deltaY, deltaZ) {
+            this.x *= Number(deltaX);
+            this.y *= Number(deltaY);
+            this.z *= Number(deltaZ);
         }
 
         Apex.prototype.rotate = function(ax, ay, az){
@@ -96,10 +108,17 @@ var Entity = Object.create(null);
             this.multiply(rotateMatrix);
         }
 
+        Apex.prototype.axonometric = function(fi, psi){
+            var axonMatrix = new Entity.Matrix();
+            axonMatrix.axon(Number(fi), Number(psi));
+            //axonMatrix = axonMatrix.axon(Number(fi), Number(psi));
+            this.multiply(axonMatrix);
+        }
+
         Apex.prototype.multiply = function(matrix){
-            temp = new Apex(this.x * matrix.matrix[0][0] + this.y * matrix.matrix[0][1] + this.z * matrix.matrix[0][2] + 1 * matrix.matrix[0][3],
-                            this.x * matrix.matrix[1][0] + this.y * matrix.matrix[1][1] + this.z * matrix.matrix[1][2] + 1 * matrix.matrix[1][3],
-                            this.x * matrix.matrix[2][0] + this.y * matrix.matrix[2][1] + this.z * matrix.matrix[2][2] + 1 * matrix.matrix[2][3]);
+            var temp = new Apex(this.x * matrix.matrix[0][0] + this.y * matrix.matrix[0][1] + this.z * matrix.matrix[0][2] + 1 * matrix.matrix[0][3],
+                                this.x * matrix.matrix[1][0] + this.y * matrix.matrix[1][1] + this.z * matrix.matrix[1][2] + 1 * matrix.matrix[1][3],
+                                this.x * matrix.matrix[2][0] + this.y * matrix.matrix[2][1] + this.z * matrix.matrix[2][2] + 1 * matrix.matrix[2][3]);
             this.x = temp.x;
             this.y = temp.y;
             this.z = temp.z;
@@ -137,10 +156,10 @@ var Entity = Object.create(null);
             }
         }
 
-        Cylinder.prototype.scale = function(delta){
+        Cylinder.prototype.scale = function(deltaX, deltaY, deltaZ){
             for(var i = 0; i < this.downEdgePoints.length; i++){
-                this.downEdgePoints[i].scale(delta);
-                this.upEdgePoints[i].scale(delta);
+                this.downEdgePoints[i].scale(deltaX, deltaY, deltaZ);
+                this.upEdgePoints[i].scale(deltaX, deltaY, deltaZ);
             }
         }
 
@@ -148,6 +167,13 @@ var Entity = Object.create(null);
             for(var i = 0; i < this.downEdgePoints.length; i++){
                 this.downEdgePoints[i].rotate(ax, ay, az);
                 this.upEdgePoints[i].rotate(ax, ay, az);
+            }
+        }
+
+        Cylinder.prototype.axonometric = function(fi, psi){
+            for(var i = 0; i < this.downEdgePoints.length; i++){
+                this.downEdgePoints[i].axonometric(fi, psi);
+                this.upEdgePoints[i].axonometric(fi, psi);
             }
         }
         return Cylinder;
@@ -160,18 +186,15 @@ var Entity = Object.create(null);
             this.ax = 0;
             this.ay = 0;
             this.az = 0;
-            this.sc = 100;
+            this.scX = 100;
+            this.scY = 100;
+            this.scZ = 100;
             this.r1 = r1;
             this.r2 = r2;
             this.h = h;
             this.q = q;
             this.cylinder1 = new Cylinder(this.r1, this.h, this.q);
             this.cylinder2 = new Cylinder(this.r2, this.h, this.q);
-            if(r1 > r2){
-                this.cylinder2.move(r1 - r2, 0, 0);
-            } else {
-                this.cylinder1.move(r2 - r1, 0, 0);
-            }
         }
 
         Figure.prototype.clone = function(){
@@ -181,7 +204,9 @@ var Entity = Object.create(null);
             fig.ax = this.ax;
             fig.ay = this.ay;
             fig.az = this.az;
-            fig.sc = this.sc;
+            fig.scX = this.scX;
+            fig.scY = this.scY;
+            fig.scZ = this.scZ;
             fig.cylinder1 = this.cylinder1.clone();
             fig.cylinder2 = this.cylinder2.clone();
             return fig;
@@ -196,11 +221,15 @@ var Entity = Object.create(null);
             document.getElementById('y').value = this.y;
         }
 
-        Figure.prototype.scale = function (delta) {
-            this.cylinder1.scale(delta);
-            this.cylinder2.scale(delta);
-            this.sc *= delta;
-            document.getElementById('cfx').value = this.sc;
+        Figure.prototype.scale = function (deltaX, deltaY, deltaZ) {
+            this.cylinder1.scale(deltaX, deltaY, deltaZ);
+            this.cylinder2.scale(deltaX, deltaY, deltaZ);
+            this.scX *= deltaX;
+            this.scY *= deltaY;
+            this.scZ *= deltaZ;
+            document.getElementById('cfx').value = this.scX;
+            document.getElementById('cfy').value = this.scY;
+            document.getElementById('cfz').value = this.scZ;
         }
 
         Figure.prototype.rotate = function (ax, ay, az){
@@ -220,6 +249,11 @@ var Entity = Object.create(null);
             document.getElementById('angleY').value = this.ay;
             document.getElementById('angleZ').value = this.az;
 
+        }
+
+        Figure.prototype.axonometric = function(fi, psi){
+            this.cylinder1.axonometric(fi, psi);
+            this.cylinder2.axonometric(fi, psi);
         }
 
         return Figure;

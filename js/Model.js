@@ -19,8 +19,8 @@ var Model = Object.create(null);
             var angleStep = 360 / quality;
             for (var i = 0; i <= quality; i++){
                 var currAngle = i * angleStep * Math.PI / 180;
-                var newX = x0 + Math.cos(currAngle) * radius;
-                var newY = y0;
+                var newX = x0 + Math.cos(currAngle) * radius - radius;
+                var newY = y0 - height / 2;
                 var newZ = y0 + Math.sin(currAngle) * radius;
                 this.upEdgePoints.push(new Entity.Apex(newX, newY + height, newZ));
                 this.downEdgePoints.push(new Entity.Apex(newX, newY, newZ));

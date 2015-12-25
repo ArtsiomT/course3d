@@ -52,109 +52,122 @@
                     </li>
                 </ul>
             </li>
-            <li class="has-sub"><a href="#">Moving</a>
+            <li class="has-sub"><a href="#">Geometrical transformations</a>
                 <ul>
-                    <li>
-                        <table>
-                            <tr>
-                                <td>
-                                    <label for="x">X</label>
-                                </td>
-                                <td>
-                                    <input id="x" name="x" type="text" size="4">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="y">Y</label>
-                                </td>
-                                <td>
-                                    <input id="y" name="y" type="text" size="4">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <button name="move" onclick="move()">Move</button>
-                                </td>
-                            </tr>
-                        </table>
+                    <li class="has-sub"><a href="#">Moving</a>
+                        <ul>
+                            <li>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label for="x">X</label>
+                                        </td>
+                                        <td>
+                                            <input id="x" name="x" type="text" size="4">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="y">Y</label>
+                                        </td>
+                                        <td>
+                                            <input id="y" name="y" type="text" size="4">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="z">Z</label>
+                                        </td>
+                                        <td>
+                                            <input id="z" name="z" type="text" size="4">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <button name="move" onclick="move()">Move</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub"><a href="#">Scaling</a>
+                        <ul>
+                            <li>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label for="cfx">Coefficient X</label>
+                                        </td>
+                                        <td>
+                                            <input id="cfx" name="cfx" type="text" size="4">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="cfy">Coefficient Y</label>
+                                        </td>
+                                        <td>
+                                            <input id="cfy" name="cfy" type="text" size="4">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="cfz">Coefficient Z</label>
+                                        </td>
+                                        <td>
+                                            <input id="cfz" name="cfz" type="text" size="4">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <button name="scale" onclick="scale()">Scale</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub"><a href="#">Rotating</a>
+                        <ul>
+                            <li>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label for="angleX">Angle X</label>
+                                        </td>
+                                        <td>
+                                            <input id="angleX" name="angleX" type="text" size="4">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="angleY">Angle Y</label>
+                                        </td>
+                                        <td>
+                                            <input id="angleY" name="angleY" type="text" size="4">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="angleZ">Angle Z</label>
+                                        </td>
+                                        <td>
+                                            <input id="angleZ" name="angleZ" type="text" size="4">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <button name="rotate" onclick="rotate()">Rotate</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>
-            <li class="has-sub"><a href="#">Scaling</a>
-                <ul>
-                    <li>
-                        <table>
-                            <tr>
-                                <td>
-                                    <label for="cfx">Coefficient X</label>
-                                </td>
-                                <td>
-                                    <input id="cfx" name="cfx" type="text" size="4">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="cfy">Coefficient Y</label>
-                                </td>
-                                <td>
-                                    <input id="cfy" name="cfy" type="text" size="4">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="cfz">Coefficient Z</label>
-                                </td>
-                                <td>
-                                    <input id="cfz" name="cfz" type="text" size="4">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <button name="scale" onclick="scale()">Scale</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </li>
-                </ul>
-            </li>
-            <li class="has-sub"><a href="#">Rotating</a>
-                <ul>
-                    <li>
-                        <table>
-                            <tr>
-                                <td>
-                                    <label for="angleX">Angle X</label>
-                                </td>
-                                <td>
-                                    <input id="angleX" name="angleX" type="text" size="4">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="angleY">Angle Y</label>
-                                </td>
-                                <td>
-                                    <input id="angleY" name="angleY" type="text" size="4">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="angleZ">Angle Z</label>
-                                </td>
-                                <td>
-                                    <input id="angleZ" name="angleZ" type="text" size="4">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <button name="rotate" onclick="rotate()">Rotate</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </li>
-                </ul>
-            </li>
+
             <li class="has-sub"><a href="#">Mouse Options</a>
                 <ul>
                     <li>
@@ -208,8 +221,26 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="has-sub"><a href="#">Approximate</a>
-
+                    <li class="has-sub"><a href="#">Axonometric</a>
+                        <ul>
+                            <li>
+                                <table>
+                                    <tr>
+                                        <td><label for="fi">Fi</label></td>
+                                        <td><input name = "fi" id = "fi" type="text" size="4" ></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="psi">Psi</label></td>
+                                        <td><input name = "psi" id = "psi" type="text" size="4"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input id="axonButton" type="submit" value="Draw" onclick="axonometric()">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li>
+                        </ul>
                     </li>
                     <li class="has-sub"><a href="#">Oblique</a>
 

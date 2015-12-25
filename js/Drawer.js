@@ -104,6 +104,17 @@
             var cyl2 = figure.cylinder2;
             var pcyl1 = profFigure.cylinder1;
             var pcyl2 = profFigure.cylinder2;
+            this.context.beginPath();
+            this.context.moveTo(this.oY / 4, this.oX / 2);
+            this.context.lineTo(this.oY * 3 / 4, this.oX / 2);
+            this.context.moveTo(this.oY / 2, this.oX / 4);
+            this.context.lineTo(this.oY / 2, this.oX * 3 / 4);
+            this.context.moveTo((this.oY * 5 / 2) / 2, this.oX / 2);
+            this.context.lineTo( (this.oY * 7 / 2) / 2, this.oX / 2);
+            this.context.moveTo(this.oY * 3 / 2, this.oX * 3 / 4);
+            this.context.lineTo(this.oY * 3 / 2, this.oX / 4);
+            this.context.stroke();
+            this.context.closePath();
             for(var i = 0; i < cyl1.upEdgePoints.length - 1; i++){
                 this.context.beginPath();
                 //horizontal projection

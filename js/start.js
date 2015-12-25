@@ -3,6 +3,7 @@
  */
 var drawer;
 var figure;
+var tempFigure;
 var canvas;
 var r1 = 30;
 var r2 = 60;
@@ -12,8 +13,6 @@ var drawProjections = false;
 
 window.onload = function () {
     canvas = document.querySelector('canvas');
-    var ctx;
-
     resize();
     drawer = new Entity.Drawer(canvas);
     figure = new Entity.Figure(r1, r2, h, q);
@@ -31,21 +30,29 @@ window.onresize = function(e){
     resize();
     drawer.oX = canvas.height / 2;
     drawer.oY = canvas.width / 2;
-
     drawer.drawFigure(figure);
+    if (drawProjections) {
+        drawer.drawFHP(figure);
+    }
 }
 
 function onwheel(e){
     e = e || window.event;
     var delta = e.deltaY || e.detail || e.wheelDelta;
     if (delta > 0){
-        figure.scale(0.9);
+        figure.scale(0.9, 0.9, 0.9);
         drawer.clear()
         drawer.drawFigure(figure);
+        if (drawProjections) {
+            drawer.drawFHP(figure);
+        }
     } else if (delta < 0){
-        figure.scale(1.1);
+        figure.scale(1.1, 1.1, 1.1);
         drawer.clear()
         drawer.drawFigure(figure);
+        if (drawProjections) {
+            drawer.drawFHP(figure);
+        }
     }
     e.preventDefault ? e.preventDefault() : (e.returnValue = false);
 }
@@ -62,22 +69,33 @@ function build(){
     figure = new Entity.Figure(r1, r2, h, q);
     drawer.clear();
     drawer.drawFigure(figure);
+    if (drawProjections) {
+        drawer.drawFHP(figure);
+    }
 }
 
 function move() {
     var dx = document.getElementById("x").value;
     var dy = document.getElementById("y").value;
-    var dz = 0;
+    var dz = document.getElementById("z").value;
     figure.move(dx, dy, dz);
     drawer.clear();
     drawer.drawFigure(figure);
+    if (drawProjections) {
+        drawer.drawFHP(figure);
+    }
 }
 
 function scale() {
-    var delta = document.getElementById("cfx").value;
-    figure.scale(delta);
+    var deltaX = document.getElementById("cfx").value;
+    var deltaY = document.getElementById("cfy").value;
+    var deltaZ = document.getElementById("cfz").value;
+    figure.scale(deltaX, deltaY, deltaZ);
     drawer.clear();
     drawer.drawFigure(figure);
+    if (drawProjections) {
+        drawer.drawFHP(figure);
+    }
 }
 
 function rotate() {
@@ -87,6 +105,9 @@ function rotate() {
     figure.rotate(angleX, angleY, angleZ);
     drawer.clear();
     drawer.drawFigure(figure);
+    if (drawProjections) {
+        drawer.drawFHP(figure);
+    }
 }
 
 function setMopt(){
@@ -210,6 +231,26 @@ function drawFHP(){
         drawProjections = false;
         drawer.drawFigure(figure);
 
+    }
+}
+
+function axonometric(){
+    var fi = document.getElementById("fi").value;
+    var psi = document.getElementById("psi").value;
+    console.log(fi, psi);
+    var button = document.getElementById("axonButton");
+    //tempFigure = new Entity.Figure(r1, r2, h, q);
+    if (button.value == "Draw"){
+        tempFigure = figure.clone();
+        figure.axonometric(fi, psi);
+        drawer.clear();
+        drawer.drawFigure(figure);
+        button.value = "Not draw";
+    } else {
+        button.value = "Draw";
+        figure = tempFigure.clone();
+        drawer.clear();
+        drawer.drawFigure(figure);
     }
 }
 
