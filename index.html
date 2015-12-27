@@ -226,11 +226,11 @@
                             <li>
                                 <table>
                                     <tr>
-                                        <td><label for="fi">Fi</label></td>
+                                        <td><label for="fi">φ</label></td>
                                         <td><input name = "fi" id = "fi" type="text" size="4" ></td>
                                     </tr>
                                     <tr>
-                                        <td><label for="psi">Psi</label></td>
+                                        <td><label for="psi">ψ</label></td>
                                         <td><input name = "psi" id = "psi" type="text" size="4"></td>
                                     </tr>
                                     <tr>
@@ -243,10 +243,52 @@
                         </ul>
                     </li>
                     <li class="has-sub"><a href="#">Oblique</a>
-
+                        <ul>
+                            <li>
+                                <table>
+                                    <tr>
+                                        <td><label for="l">L</label> </td>
+                                        <td><input name="l" id="l" type="text" size="4"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="alpha">α</label> </td>
+                                        <td><input name="alpha" id="alpha" type="text" size="4"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input id="obliqueButton" type="submit" value="Draw" onclick="oblique()">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li>
+                        </ul>
                     </li>
                     <li class="has-sub"><a href="#">Perspective</a>
-
+                        <ul>
+                            <li>
+                                <table>
+                                    <tr>
+                                        <td><label for="fip">φ</label></td>
+                                        <td><input id="fip" name="fip" type="text" size="4"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="theta">Θ</label></td>
+                                        <td><input id="theta" name="theta" type="text" size="4"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="rho">ρ</label></td>
+                                        <td><input id="rho" name="rho" type="text" size="4"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="d">d</label> </td>
+                                        <td><input id="d" name="d" type="text" size="4"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="submit" id="perspective" value="Draw" onclick="perspective()"></td>
+                                    </tr>
+                                </table>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>

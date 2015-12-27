@@ -3,8 +3,8 @@
  */
 var drawer;
 var figure;
-var tempFigure;
 var canvas;
+var tempFigure;
 var r1 = 30;
 var r2 = 60;
 var h = 150;
@@ -26,7 +26,7 @@ window.onload = function () {
 
 }
 
-window.onresize = function(e){
+window.onresize = function (e) {
     resize();
     drawer.oX = canvas.height / 2;
     drawer.oY = canvas.width / 2;
@@ -36,17 +36,17 @@ window.onresize = function(e){
     }
 }
 
-function onwheel(e){
+function onwheel(e) {
     e = e || window.event;
     var delta = e.deltaY || e.detail || e.wheelDelta;
-    if (delta > 0){
+    if (delta > 0) {
         figure.scale(0.9, 0.9, 0.9);
         drawer.clear()
         drawer.drawFigure(figure);
         if (drawProjections) {
             drawer.drawFHP(figure);
         }
-    } else if (delta < 0){
+    } else if (delta < 0) {
         figure.scale(1.1, 1.1, 1.1);
         drawer.clear()
         drawer.drawFigure(figure);
@@ -57,11 +57,11 @@ function onwheel(e){
     e.preventDefault ? e.preventDefault() : (e.returnValue = false);
 }
 
-function resize(){
+function resize() {
     canvas.height = window.innerHeight * 0.85;
     canvas.width = window.innerWidth * 0.80;
 }
-function build(){
+function build() {
     r1 = Number(document.getElementById("r1").value);
     r2 = Number(document.getElementById("r2").value);
     h = Number(document.getElementById("h").value);
@@ -110,21 +110,21 @@ function rotate() {
     }
 }
 
-function setMopt(){
+function setMopt() {
     var radio = document.querySelector('input[name = "mopt"]:checked');
-    if (radio.id == "none"){
+    if (radio.id == "none") {
         canvas.onmousedown = null;
         canvas.onmousemove = null;
         canvas.onmouseup = null;
     }
-    if (radio.id == "move"){
+    if (radio.id == "move") {
         canvas.onmousedown = null;
         canvas.onmousemove = null;
         canvas.onmouseup = null;
-        canvas.onmousedown = function(e){
+        canvas.onmousedown = function (e) {
             var x1 = e.clientX;
             var y1 = e.clientY;
-            canvas.onmousemove = function(em){
+            canvas.onmousemove = function (em) {
                 var x2 = em.clientX;
                 var y2 = em.clientY;
                 var dx = (x2 - x1);
@@ -143,14 +143,14 @@ function setMopt(){
             }
         }
     }
-    if (radio.id == "mrotX"){
+    if (radio.id == "mrotX") {
         canvas.onmousedown = null;
         canvas.onmousemove = null;
         canvas.onmouseup = null;
-        canvas.onmousedown = function(e){
+        canvas.onmousedown = function (e) {
             var x1 = e.clientX;
             var y1 = e.clientY;
-            canvas.onmousemove = function(em){
+            canvas.onmousemove = function (em) {
                 var x2 = em.clientX;
                 var y2 = em.clientY;
                 var angle = (y1 - y2);
@@ -163,19 +163,19 @@ function setMopt(){
                 x1 = x2;
                 y1 = y2;
             }
-            canvas.onmouseup = function(eu){
+            canvas.onmouseup = function (eu) {
                 canvas.onmousemove = null;
             }
         }
     }
-    if (radio.id == "mrotY"){
+    if (radio.id == "mrotY") {
         canvas.onmousedown = null;
         canvas.onmousemove = null;
         canvas.onmouseup = null;
-        canvas.onmousedown = function(e){
+        canvas.onmousedown = function (e) {
             var x1 = e.clientX;
             var y1 = e.clientY;
-            canvas.onmousemove = function(em){
+            canvas.onmousemove = function (em) {
                 var x2 = em.clientX;
                 var y2 = em.clientY;
                 var angle = (x1 - x2);
@@ -188,19 +188,19 @@ function setMopt(){
                 x1 = x2;
                 y1 = y2;
             }
-            canvas.onmouseup = function(eu){
+            canvas.onmouseup = function (eu) {
                 canvas.onmousemove = null;
             }
         }
     }
-    if (radio.id == "mrotZ"){
+    if (radio.id == "mrotZ") {
         canvas.onmousedown = null;
         canvas.onmousemove = null;
         canvas.onmouseup = null;
-        canvas.onmousedown = function(e){
+        canvas.onmousedown = function (e) {
             var x1 = e.clientX;
             var y1 = e.clientY;
-            canvas.onmousemove = function(em){
+            canvas.onmousemove = function (em) {
                 var x2 = em.clientX;
                 var y2 = em.clientY;
                 var angle = (x2 - x1);
@@ -213,15 +213,15 @@ function setMopt(){
                 x1 = x2;
                 y1 = y2;
             }
-            canvas.onmouseup = function(eu){
+            canvas.onmouseup = function (eu) {
                 canvas.onmousemove = null;
             }
         }
     }
 }
-function drawFHP(){
+function drawFHP() {
     var button = document.getElementById("fhp");
-    if (button.value == "Draw"){
+    if (button.value == "Draw") {
         drawer.drawFHP(figure);
         button.value = "Not draw";
         drawProjections = true;
@@ -234,13 +234,13 @@ function drawFHP(){
     }
 }
 
-function axonometric(){
+function axonometric() {
     var fi = document.getElementById("fi").value;
     var psi = document.getElementById("psi").value;
     console.log(fi, psi);
     var button = document.getElementById("axonButton");
-    //tempFigure = new Entity.Figure(r1, r2, h, q);
-    if (button.value == "Draw"){
+    //var tempFigure;
+    if (button.value == "Draw") {
         tempFigure = figure.clone();
         figure.axonometric(fi, psi);
         drawer.clear();
@@ -252,6 +252,26 @@ function axonometric(){
         drawer.clear();
         drawer.drawFigure(figure);
     }
+}
+
+function oblique() {
+    var alpha = document.getElementById("alpha").value;
+    var l = document.getElementById("l").value;
+    var button = document.getElementById("obliqueButton");
+    //var tempFigure;
+    if (button.value == "Draw") {
+        tempFigure = figure.clone();
+        figure.oblique(alpha, l);
+        drawer.clear();
+        drawer.drawFigure(figure);
+        button.value = "Not draw";
+    } else {
+        button.value = "Draw";
+        figure = tempFigure.clone();
+        drawer.clear();
+        drawer.drawFigure(figure);
+    }
+
 }
 
 

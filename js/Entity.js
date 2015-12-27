@@ -75,6 +75,16 @@ var Entity = Object.create(null);
             //return axonometric;
             this.multiply(axonometric);
         }
+
+        Matrix.prototype.oblique = function(alpha, L){
+            var a = Number(alpha) * Math.PI / 180;
+            var obl = new Matrix();
+            obl.matrix[0][0] = 1; obl.matrix[0][1] = 0; obl.matrix[0][2] = 0; obl.matrix[0][3] = 0;
+            obl.matrix[1][0] = 0; obl.matrix[1][1] = 1; obl.matrix[1][2] = 0; obl.matrix[1][3] = 0;
+            obl.matrix[2][0] = L * Math.cos(a); obl.matrix[2][1] = L * Math.sin(a); obl.matrix[2][2] = 1; obl.matrix[2][3] = 0;
+            obl.matrix[3][0] = 0; obl.matrix[3][1] = 0; obl.matrix[3][2] = 0; obl.matrix[3][3] = 1;
+            this.multiply(obl);
+        }
         return Matrix;
     })();
 
@@ -113,6 +123,12 @@ var Entity = Object.create(null);
             axonMatrix.axon(Number(fi), Number(psi));
             //axonMatrix = axonMatrix.axon(Number(fi), Number(psi));
             this.multiply(axonMatrix);
+        }
+
+        Apex.prototype.oblique = function(alpha, l){
+            var obliqueMatrix = new Entity.Matrix();
+            obliqueMatrix.oblique(alpha, l);
+            this.multiply(obliqueMatrix);
         }
 
         Apex.prototype.multiply = function(matrix){
@@ -174,6 +190,13 @@ var Entity = Object.create(null);
             for(var i = 0; i < this.downEdgePoints.length; i++){
                 this.downEdgePoints[i].axonometric(fi, psi);
                 this.upEdgePoints[i].axonometric(fi, psi);
+            }
+        }
+
+        Cylinder.prototype.oblique = function(alpha, l){
+            for(var i = 0; i < this.downEdgePoints.length; i++){
+                this.downEdgePoints[i].oblique(alpha, l);
+                this.upEdgePoints[i].oblique(alpha, l);
             }
         }
         return Cylinder;
@@ -254,6 +277,11 @@ var Entity = Object.create(null);
         Figure.prototype.axonometric = function(fi, psi){
             this.cylinder1.axonometric(fi, psi);
             this.cylinder2.axonometric(fi, psi);
+        }
+
+        Figure.prototype.oblique = function(alpha, l){
+            this.cylinder1.oblique(alpha, l);
+            this.cylinder2.oblique(alpha, l);
         }
 
         return Figure;
