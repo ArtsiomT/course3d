@@ -46,6 +46,14 @@
                                 <td><input id="q" name="q" type="text" size="4"></td>
                             </tr>
                             <tr>
+                                <td><label for="false">Not fill</label></td>
+                                <td><input type="radio" name="fill" id="false" checked="checked" onchange="filling()"></td>
+                            </tr><tr>
+                                <td><label for="true">Fill</label></td>
+                                <td><input type="radio" name="fill" id="true" onchange="filling()"></td>
+                            </tr>
+                            <tr></tr>
+                            <tr>
                                 <td colspan="2"><input type="submit" value="Build" onclick="build()"></td>
                             </tr>
                         </table>

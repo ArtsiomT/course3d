@@ -5,6 +5,7 @@ var drawer;
 var figure;
 var canvas;
 var tempFigure;
+var fill = false;
 var r1 = 30;
 var r2 = 60;
 var h = 150;
@@ -23,7 +24,11 @@ window.onload = function () {
     document.getElementById("r2").value = r2;
     document.getElementById("h").value = h;
     document.getElementById("q").value = q;
-
+    document.getElementById("false").checked = "checked";
+    var fields = document.getElementsByTagName('input[type = "input"]');
+    for(var i = 0; i < fields.length; i++){
+        fields[i].value = "0";
+    }
 }
 
 window.onresize = function (e) {
@@ -268,10 +273,44 @@ function oblique() {
     } else {
         button.value = "Draw";
         figure = tempFigure.clone();
+        tempFigure = null;
         drawer.clear();
         drawer.drawFigure(figure);
     }
 
 }
 
+function perspective(){
+    var fi = document.getElementById("fip").value;
+    var theta = document.getElementById("theta").value;
+    var ro = document.getElementById("rho").value;
+    var d = document.getElementById("d").value;
+    console.log(fi, theta, ro, d);
+    var button = document.getElementById("perspective");
+    if (button.value == "Draw"){
+        tempFigure = figure.clone();
+        figure.perspective(fi, theta, ro, d);
+        drawer.clear();
+        drawer.drawFigure(figure);
+        button.value = "Not draw";
+    } else {
+        button.value = "Draw";
+        figure = tempFigure.clone();
+        tempFigure = null;
+        drawer.clear();
+        drawer.drawFigure(figure);
+    }
+}
+
+function filling(){
+    if (fill){
+        fill = false;
+        drawer.clear();
+        drawer.drawFigure(figure);
+    } else {
+        fill = true;
+        drawer.clear();
+        drawer.drawFigure(figure);
+    }
+}
 

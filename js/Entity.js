@@ -34,6 +34,21 @@ var Entity = Object.create(null);
             }
         }
 
+        Matrix.mult = function (A, B){
+            var arr = [];
+            for (var i = 0; i < A.length; i++){
+                arr[i] = [];
+                for (var j = 0; j < B[0].length; j++){
+                    var tmp = 0;
+                    for (var k = 0; k < B.length; k++){
+                        tmp += A[i][k] * B[k][j];
+                    }
+                    arr[i][j] = tmp;
+                }
+            }
+            return arr;
+        }
+
         Matrix.prototype.rotate = function(ax, ay, az){
             if (ax != 0){
                 var rotX = new Matrix();
@@ -68,22 +83,36 @@ var Entity = Object.create(null);
             var angleFi = Number(fi) * Math.PI / 180;
             var anglePsi = Number(psi) * Math.PI / 180;
             var axonometric = new Matrix();
-            axonometric.matrix[0][0] = Math.cos(anglePsi); axonometric.matrix[0][1] = Math.sin(angleFi) * Math.sin(anglePsi); axonometric.matrix[0][2] = 0; axonometric.matrix[0][3] = 0;
-            axonometric.matrix[1][0] = 0; axonometric.matrix[1][1] = Math.cos(angleFi);axonometric.matrix[1][2] = 0; axonometric.matrix[1][3] = 0;
-            axonometric.matrix[2][0] = Math.sin(angleFi); axonometric.matrix[2][1] = Math.sin(angleFi) * Math.cos(anglePsi) * -1; axonometric.matrix[2][2] = 0; axonometric.matrix[2][3] = 0;
-            axonometric.matrix[3][0] = 0; axonometric.matrix[3][1] = 0; axonometric.matrix[3][2] = 0; axonometric.matrix[3][3] = 1;
+            axonometric.matrix[0][0] = Math.cos(anglePsi); axonometric.matrix[1][0] = Math.sin(angleFi) * Math.sin(anglePsi); axonometric.matrix[2][0] = 0; axonometric.matrix[3][0] = 0;
+            axonometric.matrix[0][1] = 0; axonometric.matrix[1][1] = Math.cos(angleFi);axonometric.matrix[2][1] = 0; axonometric.matrix[3][1] = 0;
+            axonometric.matrix[0][2] = Math.sin(angleFi); axonometric.matrix[1][2] = Math.sin(angleFi) * Math.cos(anglePsi) * -1; axonometric.matrix[2][2] = 0; axonometric.matrix[3][2] = 0;
+            axonometric.matrix[0][3] = 0; axonometric.matrix[1][3] = 0; axonometric.matrix[2][3] = 0; axonometric.matrix[3][3] = 1;
             //return axonometric;
             this.multiply(axonometric);
         }
 
         Matrix.prototype.oblique = function(alpha, L){
             var a = Number(alpha) * Math.PI / 180;
+            var L = Number(L);
             var obl = new Matrix();
-            obl.matrix[0][0] = 1; obl.matrix[0][1] = 0; obl.matrix[0][2] = 0; obl.matrix[0][3] = 0;
-            obl.matrix[1][0] = 0; obl.matrix[1][1] = 1; obl.matrix[1][2] = 0; obl.matrix[1][3] = 0;
-            obl.matrix[2][0] = L * Math.cos(a); obl.matrix[2][1] = L * Math.sin(a); obl.matrix[2][2] = 1; obl.matrix[2][3] = 0;
-            obl.matrix[3][0] = 0; obl.matrix[3][1] = 0; obl.matrix[3][2] = 0; obl.matrix[3][3] = 1;
+            obl.matrix[0][0] = 1; obl.matrix[1][0] = 0; obl.matrix[2][0] = 0; obl.matrix[3][0] = 0;
+            obl.matrix[0][1] = 0; obl.matrix[1][1] = 1; obl.matrix[2][1] = 0; obl.matrix[3][1] = 0;
+            obl.matrix[0][2] = L * Math.cos(a); obl.matrix[1][2] = L * Math.sin(a); obl.matrix[2][2] = 1; obl.matrix[3][2] = 0;
+            obl.matrix[0][3] = 0; obl.matrix[1][3] = 0; obl.matrix[2][3] = 0; obl.matrix[3][3] = 1;
             this.multiply(obl);
+        }
+
+        Matrix.prototype.perspective = function(fi, theta, ro, d){
+            var phi = Number(fi) * Math.PI / 180;
+            var theta = Number(theta) * Math.PI / 180;
+            var ro = Number(ro);
+            var d = Number(d);
+            var perspect = new Matrix();
+            perspect.matrix[0][0] = Math.cos(theta); perspect.matrix[0][1] = -Math.cos(phi) * Math.sin(theta); perspect.matrix[0][2] = -Math.sin(phi) * Math.sin(theta) ; perspect.matrix[0][3] = 0;
+            perspect.matrix[1][0] = Math.sin(theta); perspect.matrix[1][1] = Math.cos(phi) * Math.cos(theta); perspect.matrix[1][2] = Math.sin(phi) * Math.cos(theta); perspect.matrix[1][3] = 0;
+            perspect.matrix[2][0] = 0; perspect.matrix[2][1] = Math.sin(phi); perspect.matrix[2][2] = -Math.cos(phi); perspect.matrix[2][3] = 0;
+            perspect.matrix[3][0] = 0; perspect.matrix[3][1] = 0; perspect.matrix[3][2] = ro+0.001; perspect.matrix[3][3] = 1;
+            this.multiply(perspect);
         }
         return Matrix;
     })();
@@ -129,6 +158,24 @@ var Entity = Object.create(null);
             var obliqueMatrix = new Entity.Matrix();
             obliqueMatrix.oblique(alpha, l);
             this.multiply(obliqueMatrix);
+        }
+
+        Apex.prototype.perspective = function(fi, theta, ro, d){
+            var perspectiveMatrix = new Entity.Matrix();
+            perspectiveMatrix.perspective(fi, theta, ro);
+            var tempArr = [];
+            tempArr[0] = [];
+            tempArr[0][0] = this.x;
+            tempArr[0][1] = this.y;
+            tempArr[0][2] = this.z;
+            tempArr[0][3] = 1;
+            var outM = Entity.Matrix.mult(tempArr, perspectiveMatrix.matrix);
+            if (outM[0][2] == 0) {
+                outM[0][2] == 1;
+            }
+            this.x = outM[0][0] * d / outM [0][2];
+            this.y = outM[0][1] * d / outM [0][2];
+            this.z = outM [0][2];
         }
 
         Apex.prototype.multiply = function(matrix){
@@ -197,6 +244,12 @@ var Entity = Object.create(null);
             for(var i = 0; i < this.downEdgePoints.length; i++){
                 this.downEdgePoints[i].oblique(alpha, l);
                 this.upEdgePoints[i].oblique(alpha, l);
+            }
+        }
+        Cylinder.prototype.perspective = function(fi, theta, ro, d){
+            for(var i = 0; i < this.downEdgePoints.length; i++){
+                this.downEdgePoints[i].perspective(fi, theta, ro, d);
+                this.upEdgePoints[i].perspective(fi, theta, ro, d);
             }
         }
         return Cylinder;
@@ -282,6 +335,11 @@ var Entity = Object.create(null);
         Figure.prototype.oblique = function(alpha, l){
             this.cylinder1.oblique(alpha, l);
             this.cylinder2.oblique(alpha, l);
+        }
+
+        Figure.prototype.perspective = function(fi, theta, ro, d){
+            this.cylinder1.perspective(fi,theta,ro, d);
+            this.cylinder2.perspective(fi,theta,ro, d);
         }
 
         return Figure;
